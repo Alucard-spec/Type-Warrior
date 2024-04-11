@@ -1,10 +1,11 @@
 
 import './App.css';
+import Enemy from './components/Enemy';
 
 function App() {
   return (
-    <div className="App">
-     
+    <div className="">
+        <Enemy/>
     </div>
   );
 }
