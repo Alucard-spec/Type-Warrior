@@ -1,22 +1,13 @@
 import React, { useEffect, useState} from 'react'
+var randomSentence = require('random-sentence');
 
 const Enemy = () => {
 
   
 
-    const [word,setWord]=useState("start") 
-
-   const retriveWord= async ()=>{
-        try{
-            let res= await fetch("https://random-word-api.herokuapp.com/word");
-            let data= await res.json();
-            console.log(data[0]);
-            setWord(data[0]);
-        }
-        catch(err){
-          console.error(err);
-        }
-   }
+    const [word,setWord]=useState(randomSentence({words:10})+" "+ randomSentence({words:10})+" " +randomSentence({words:10})+ " "+randomSentence({words:10}) + " " +randomSentence({words:10}) +" "+ randomSentence({words:10})+" "+randomSentence({words:10})+" "+ randomSentence({words:10})+" "+randomSentence({words:10}) ) 
+const [score,setScore]=useState(0);
+  
   const [numberP,setNumberP]=useState(0);
   
   const handleKeyDown= (e)=> {
@@ -29,8 +20,9 @@ validate(e.key);
   }
   let validate=(currentKey)=>{
     if(numberP===word.length){
-      retriveWord();
+     setWord(randomSentence({words:10})+" "+ randomSentence({words:10})+" " +randomSentence({words:10})+ " "+randomSentence({words:10}) + " " +randomSentence({words:10}) +" "+ randomSentence({words:10})+" "+randomSentence({words:10})+" "+ randomSentence({words:10})+" "+randomSentence({words:10}) )
       setNumberP(0);
+      setScore((score)=>score+1)
       return
      
      }
@@ -54,12 +46,15 @@ validate(e.key);
 
     
   return (
-    <div className='bg-gradient-to-r from-orange-400 to-red-500  flex items-center w-fit p-5 rounded-2xl shadow-2xl  mx-auto mt-14'>
-        <div  className='w-fit mx-auto font-bold text-2xl '><span className='text-white '>{ word.substring(0,numberP)}</span>{word.substring(numberP)} </div>
-
+    <div>    <div className='bg-gradient-to-r from-orange-400 to-red-500  flex items-center mx-9 p-5 rounded-2xl shadow-2xl  mt-14'>
+        <div  className='w-fit mx-auto font-bold text-2xl '><span className='text-white '>{ word.substring(0,numberP)}</span><span className='underline text-yellow-300'>{word.charAt(numberP)}</span>{word.substring(numberP+1)} </div>
+    
         
 
     </div>
+    <div className='p-5 rounded-full px-8 font-extrabold text-white text-4xl mt-5 bg-blue-500 mx-auto w-fit'>{score}</div>
+    </div>
+
   )
 }
 
